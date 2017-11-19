@@ -8,6 +8,8 @@ class App extends Component {
     return (
       <div className="app">
         Hello world
+        <button onClick={this.props.actions.getInitialQuestions}>Get questions</button>
+        <div>{this.props.questions[0]['question']}</div>
       </div>
     );
   }
