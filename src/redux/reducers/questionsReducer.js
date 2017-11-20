@@ -9,15 +9,13 @@ let questionsReducer = function(state = {}, action){
 			console.log('Get Questions')
 			return  []
 		case 'GET_QUESTIONS_FULFILLED':
-			console.log(state)
-			// return [{
-			// 	question: he.decode(action.payload['data']['results'][0]['question']),
-			// 	answer: action.payload['data']['results'][0]['correct_answer'],
-			// }]
+			console.log(action.payload)
 			return action.payload['data']['results'].map((question) => {
 				return {
 					question: he.decode(question['question']),
-					answer: he.decode(question['correct_answer'])
+					answer: he.decode(question['correct_answer']),
+					type: question['type'],
+					options: question['incorrect_answers'].map((option) => {return he.decode(option)})
 				}
 			})
 		default:
