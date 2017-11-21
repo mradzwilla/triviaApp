@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux'
 import questionsReducer from './questionsReducer'
-// import fetcherReducer from './fetcherReducer'
+import categoriesReducer from './categoriesReducer'
 
 const rootReducer = combineReducers({
 	questions: questionsReducer,
+	categories: categoriesReducer,
 })
 
 export default rootReducer

@@ -22,7 +22,11 @@ class OptionsComponent extends Component {
 			return (
 				<div>
 				{this.getOptions().map((option, index) => {
-						return <button key={index}>{option}</button>
+						return <button 
+									onClick={() => {this.props.actions.checkAnswer(this.props.questionId, option)}} 
+									key={index}>
+								{option}
+								</button>
 					})
 				}
 				</div>

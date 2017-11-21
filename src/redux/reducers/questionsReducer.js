@@ -6,18 +6,21 @@ import he from 'he'
 let questionsReducer = function(state = {}, action){
 	switch (action.type){
 		case 'GET_QUESTIONS':
-			console.log('Get Questions')
-			return  []
+			return []
 		case 'GET_QUESTIONS_FULFILLED':
 			console.log(action.payload)
-			return action.payload['data']['results'].map((question) => {
+			return action.payload['data']['results'].map((question, index) => {
 				return {
 					question: he.decode(question['question']),
 					answer: he.decode(question['correct_answer']),
 					type: question['type'],
-					options: question['incorrect_answers'].map((option) => {return he.decode(option)})
+					options: question['incorrect_answers'].map((option) => {return he.decode(option)}),
+					id: index
 				}
 			})
+		case 'CHECK_ANSWER':
+			console.log(action)
+			return state
 		default:
 			return state;
 	}
