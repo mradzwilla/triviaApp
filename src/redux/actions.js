@@ -7,7 +7,8 @@ const constants = {
 	QUESTIONS_OF_TYPE: 'QUESTIONS_OF_TYPE',
 	SET_ALL_CATEGORIES: 'SET_ALL_CATEGORIES',
 	UPDATE_ACTIVE_CATEGORIES: 'UPDATE_ACTIVE_CATEGORIES',
-	CHANGE_CURRENT_CATEGORY: 'CHANGE_CURRENT_CATEGORY'
+	CHANGE_CURRENT_CATEGORY: 'CHANGE_CURRENT_CATEGORY',
+	ADD_SCORE: 'ADD_SCORE'
 }
 
 let actions = {
@@ -44,6 +45,11 @@ let actions = {
 		return {
 			type: constants.CHANGE_CURRENT_CATEGORY,
 			category: category
+		}
+	},
+	addScoreToCategory: function(){
+		return{
+			type: constants.ADD_SCORE
 		}
 	}
 }

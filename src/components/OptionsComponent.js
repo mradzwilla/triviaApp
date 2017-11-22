@@ -6,7 +6,8 @@ import shuffle from 'shuffle-array'
 
 class OptionsComponent extends Component {
 	getOptions(){
-		var options = this.props.options
+		//Slice is needed to create a copy to avid mutating state
+		var options = this.props.options.slice(0)
 		options.push(this.props.answer)
 		return shuffle(options)
 	}

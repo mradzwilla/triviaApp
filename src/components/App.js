@@ -11,17 +11,19 @@ class App extends Component {
     var categories = this.props.actions.updateActiveCategories(this.props.categories.allCategories)['categories']
     //Category has id and name property
     for (var i=0; i < categories.length ; i++){
-      this.props.actions.getQuestionsOfType(categories[i]['id'], 5)
+      this.props.actions.getQuestionsOfType(categories[i]['id'], 10)
     }
     // this.props.actions.getInitialQuestions(this.props.categories.activeCategories);
   }
 
   render() {
-    var currentQuestionArray = this.props.questions[this.props.categories.currentCategory]
+    console.log(this.props)
+    var currentQuestionArray = this.props.questions[this.props.categories.currentCategory['id']]
     // console.log((this.props.categories.currentCategory))
     return (
       <div className="app">
         <h1>LET'S GET TRIVIAL!</h1>
+        <button onClick={this.props.actions.addScoreToCategory}>Add score </button>
         <div>Timer Component</div>
         <div>Lives Component</div>
         {this.props.categories.activeCategories.map((category, i) => {
@@ -44,10 +46,8 @@ class App extends Component {
                     type={question.type}
                     id={question.id}
                  />
-          }) : console.log(currentQuestionArray) 
+          }) : <div>Loading Questions...</div>
         }
-        <button onClick={this.props.actions.getInitialQuestions}>Get questions </button>
-        <button onClick={() => this.props.actions.changeCurrentCategory('12')}>Update cat </button>
       </div>
     );
   }
