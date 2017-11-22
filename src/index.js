@@ -31,7 +31,8 @@ var categories = {
 		{"id":30,"name":"Gadgets"},
 		{"id":32,"name":"Cartoon & Animations"}
 		],
-	activeCategories: []
+	activeCategories: [],
+	currentCategory: 0
 }
 //Remember each element added in state also needs to be assigned a reducer
 let initialState = {

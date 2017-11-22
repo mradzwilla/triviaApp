@@ -6,11 +6,13 @@ const constants = {
 	CHECK_ANSWER: 'CHECK_ANSWER',
 	QUESTIONS_OF_TYPE: 'QUESTIONS_OF_TYPE',
 	SET_ALL_CATEGORIES: 'SET_ALL_CATEGORIES',
-	UPDATE_ACTIVE_CATEGORIES: 'UPDATE_ACTIVE_CATEGORIES'
+	UPDATE_ACTIVE_CATEGORIES: 'UPDATE_ACTIVE_CATEGORIES',
+	CHANGE_CURRENT_CATEGORY: 'CHANGE_CURRENT_CATEGORY'
 }
 
 let actions = {
-	getInitialQuestions: function(){
+	getInitialQuestions: function(categories){
+		console.log(categories)
 		return {
 			type: constants.GET_QUESTIONS,
 			payload: axios.get("https://opentdb.com/api.php?amount=10")
@@ -19,8 +21,11 @@ let actions = {
 	getQuestionsOfType: function(category, amount){
 		return {
 			type: constants.QUESTIONS_OF_TYPE,
-			amount: amount,
-			category: category
+			meta: {
+				amount: amount,
+				categoryID: category,
+			},
+			payload: axios.get("https://opentdb.com/api.php?amount=" + amount + "&category=" + category)
 		}
 	},
 	checkAnswer: function(questionId, option){
@@ -28,18 +33,17 @@ let actions = {
 			type: constants.CHECK_ANSWER
 		}
 	},
-	// setAllCatessgories: function(categories){
-	// 	return {
-	// 		type: constants.SET_ALL_CATEGORIES,
-	// 		categories: categories
-	// 	}
-	// },
 	updateActiveCategories: function(categories){
 		var shuffledArray = shuffle(categories).slice(0,5)
-
 		return {
 			type: constants.UPDATE_ACTIVE_CATEGORIES,
 			categories: shuffledArray
+		}
+	},
+	changeCurrentCategory: function(category){
+		return {
+			type: constants.CHANGE_CURRENT_CATEGORY,
+			category: category
 		}
 	}
 }

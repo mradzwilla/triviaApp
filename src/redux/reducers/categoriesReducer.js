@@ -6,15 +6,14 @@ let categoriesReducer = function(categories = {}, action){
 		// case 'SET_ALL_CATEGORIES':
 		// 	return action.categories
 		case 'UPDATE_ACTIVE_CATEGORIES':
-			console.log('UPDATE_ACTIVE_CATEGORIES')
-			console.log(categories)
-			console.log(action)
 			return {
 				allCategories: categories.allCategories,
-				activeCategories: action.categories
+				activeCategories: action.categories,
+				currentCategory: action.categories[0]['id']
 			}
+		case 'CHANGE_CURRENT_CATEGORY':
+			return Object.assign({}, categories, {currentCategory: action.category})
 		default:
-		console.log("DEFAULT")
 			return categories;
 	}
 }

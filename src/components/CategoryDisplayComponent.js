@@ -6,9 +6,9 @@ import React, { Component } from 'react';
 class CategoryDisplayComponent extends Component {
   render() {
     return (
-      <div>
-      	Category Button
-      </div>
+      <button onClick={() => {this.props.actions.changeCurrentCategory(this.props.categoryId)}}>
+      	{this.props.category}
+      </button>
     );
   }
 }

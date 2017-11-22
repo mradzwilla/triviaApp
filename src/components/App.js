@@ -8,31 +8,46 @@ import CategoryDisplayComponent from './CategoryDisplayComponent'
 class App extends Component {
 
   componentWillMount(){
-    this.props.actions.updateActiveCategories(this.props.categories.allCategories)
-    this.props.actions.getInitialQuestions();
+    var categories = this.props.actions.updateActiveCategories(this.props.categories.allCategories)['categories']
+    //Category has id and name property
+    for (var i=0; i < categories.length ; i++){
+      this.props.actions.getQuestionsOfType(categories[i]['id'], 5)
+    }
+    // this.props.actions.getInitialQuestions(this.props.categories.activeCategories);
   }
 
   render() {
+    var currentQuestionArray = this.props.questions[this.props.categories.currentCategory]
+    // console.log((this.props.categories.currentCategory))
     return (
       <div className="app">
         <h1>LET'S GET TRIVIAL!</h1>
         <div>Timer Component</div>
         <div>Lives Component</div>
-        <CategoryDisplayComponent actions={this.props.actions} category={false}/>
-        <button onClick={this.props.actions.getInitialQuestions}>Get questions </button>
-        <button onClick={() => this.props.actions.updateActiveCategories(this.props.categories.allCategories)}>Update categories</button>
-          {this.props.questions.map((question, i) => {
-            return <QuestionComponent 
+        {this.props.categories.activeCategories.map((category, i) => {
+            return <CategoryDisplayComponent 
                       key={i}
-                      actions = {this.props.actions} 
-                      question={question.question} 
-                      answer={question.answer} 
-                      options={question.options} 
-                      type={question.type}
-                      id={question.id}
-                   />
-            }) 
-          }
+                      actions={this.props.actions} 
+                      category={category.name}
+                      categoryId={category.id}
+                    />
+          })
+        }
+        { (currentQuestionArray) ? 
+          currentQuestionArray.map((question, i) => {
+          return <QuestionComponent 
+                    key={i}
+                    actions = {this.props.actions} 
+                    question={question.question} 
+                    answer={question.answer} 
+                    options={question.options} 
+                    type={question.type}
+                    id={question.id}
+                 />
+          }) : console.log(currentQuestionArray) 
+        }
+        <button onClick={this.props.actions.getInitialQuestions}>Get questions </button>
+        <button onClick={() => this.props.actions.changeCurrentCategory('12')}>Update cat </button>
       </div>
     );
   }
@@ -49,3 +64,17 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
+
+  // <button onClick={() => this.props.actions.updateActiveCategories(this.props.categories.allCategories)}>Update categories</button>
+    // {this.props.questions.map((question, i) => {
+    //   return <QuestionComponent 
+    //             key={i}
+    //             actions = {this.props.actions} 
+    //             question={question.question} 
+    //             answer={question.answer} 
+    //             options={question.options} 
+    //             type={question.type}
+    //             id={question.id}
+    //          />
+    //   }) 
+    // }
