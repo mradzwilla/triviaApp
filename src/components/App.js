@@ -23,6 +23,7 @@ class App extends Component {
     return (
       <div className="app">
         <h1>LET'S GET TRIVIAL!</h1>
+        <div>Lives: {this.props.lives}</div>
         <button onClick={this.props.actions.addScoreToCategory}>Add score </button>
         <div>Timer Component</div>
         <div>Lives Component</div>
@@ -32,6 +33,7 @@ class App extends Component {
                       actions={this.props.actions} 
                       category={category.name}
                       categoryId={category.id}
+                      score={category.score}
                     />
           })
         }

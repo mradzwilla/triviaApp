@@ -15,8 +15,8 @@ class OptionsComponent extends Component {
 		if (this.props.type === 'boolean'){
 		    return (
 		      <div>
-		      	<button>True</button>
-		      	<button>False</button>
+		      	<button onClick={() => {this.props.actions.checkAnswer(this.props.answer === "True")}}>True</button>
+		      	<button onClick={() => {this.props.actions.checkAnswer(this.props.answer === "False")}}>False</button>
 		      </div>
 		    )
 		} else {
@@ -24,8 +24,10 @@ class OptionsComponent extends Component {
 				<div>
 				{this.getOptions().map((option, index) => {
 						return <button 
-									onClick={() => {this.props.actions.checkAnswer(this.props.questionId, option)}} 
-									key={index}>
+									onClick={() => {this.props.actions.checkAnswer(this.props.answer === option)}} 
+									key={index}
+									correct={this.props.answer === option}
+									>
 								{option}
 								</button>
 					})

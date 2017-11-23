@@ -12,16 +12,3 @@ let finalCreateStore = compose(
 export default function configureStore(initialState = {todos: [] }) {
 	return finalCreateStore(rootReducer, initialState)
 }
-
-// import {applyMiddleware, createStore } from 'redux';
-// import logger from 'redux-logger';
-// import thunk from 'redux-thunk';
-
-// const reducer = (state ={}, action) =>{
-// 	return state
-// }
-
-// const middleware = applyMiddleware(thunk, logger())
-// const store = createStore(reducer, middleware)
-
-// export default store

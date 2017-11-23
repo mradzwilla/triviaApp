@@ -8,7 +8,8 @@ const constants = {
 	SET_ALL_CATEGORIES: 'SET_ALL_CATEGORIES',
 	UPDATE_ACTIVE_CATEGORIES: 'UPDATE_ACTIVE_CATEGORIES',
 	CHANGE_CURRENT_CATEGORY: 'CHANGE_CURRENT_CATEGORY',
-	ADD_SCORE: 'ADD_SCORE'
+	ADD_SCORE: 'ADD_SCORE',
+	LOSE_LIFE: 'LOSE_LIFE'
 }
 
 let actions = {
@@ -29,9 +30,16 @@ let actions = {
 			payload: axios.get("https://opentdb.com/api.php?amount=" + amount + "&category=" + category)
 		}
 	},
-	checkAnswer: function(questionId, option){
-		return {
-			type: constants.CHECK_ANSWER
+	checkAnswer: function(correct){
+		console.log('This is ' + correct)
+		if (correct){
+			return {
+				type: constants.ADD_SCORE
+			}
+		} else {
+			return {
+				type: constants.LOSE_LIFE
+			}
 		}
 	},
 	updateActiveCategories: function(categories){
