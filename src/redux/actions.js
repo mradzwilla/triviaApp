@@ -9,17 +9,18 @@ const constants = {
 	UPDATE_ACTIVE_CATEGORIES: 'UPDATE_ACTIVE_CATEGORIES',
 	CHANGE_CURRENT_CATEGORY: 'CHANGE_CURRENT_CATEGORY',
 	ADD_SCORE: 'ADD_SCORE',
-	LOSE_LIFE: 'LOSE_LIFE'
+	LOSE_LIFE: 'LOSE_LIFE',
+	NEXT_QUESTION: 'NEXT_QUESTION'
 }
 
 let actions = {
-	getInitialQuestions: function(categories){
-		console.log(categories)
-		return {
-			type: constants.GET_QUESTIONS,
-			payload: axios.get("https://opentdb.com/api.php?amount=10")
-		}
-	},
+	// getInitialQuestions: function(categories){
+	// 	console.log(categories)
+	// 	return {
+	// 		type: constants.GET_QUESTIONS,
+	// 		payload: axios.get("https://opentdb.com/api.php?amount=10")
+	// 	}
+	// },
 	getQuestionsOfType: function(category, amount){
 		return {
 			type: constants.QUESTIONS_OF_TYPE,
@@ -31,7 +32,6 @@ let actions = {
 		}
 	},
 	checkAnswer: function(correct){
-		console.log('This is ' + correct)
 		if (correct){
 			return {
 				type: constants.ADD_SCORE
@@ -42,8 +42,21 @@ let actions = {
 			}
 		}
 	},
+	nextQuestion: function(){
+		console.log('NEXT QUESTION')
+		return {
+			type: constants.NEXT_QUESTION
+		}
+	},
 	updateActiveCategories: function(categories){
 		var shuffledArray = shuffle(categories).slice(0,5)
+		//Add a score property if no score exists
+		for (let i=0;i<shuffledArray.length;i++){
+			var index = shuffledArray[i]
+			if (!index['score']){
+				index['score'] = 0
+			}
+		}
 		return {
 			type: constants.UPDATE_ACTIVE_CATEGORIES,
 			categories: shuffledArray

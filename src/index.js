@@ -7,7 +7,7 @@ import { Provider } from 'react-redux'
 
 var categories = {
 	allCategories:[
-		{"id":9,"name":"General Knowledge"},
+		{"id":9,"name":"General Knowledge", },
 		{"id":10,"name":"Books"},
 		{"id":11,"name":"Film"},
 		{"id":12,"name":"Music"},
@@ -34,9 +34,10 @@ var categories = {
 	activeCategories: [],
 	currentCategory: {id:0}
 }
+
 //Remember each element added in state also needs to be assigned a reducer
 let initialState = {
-	questions: [],
+	questions: {currentQuestionIndex: 0},
 	categories: categories,
 	lives: 5
 }

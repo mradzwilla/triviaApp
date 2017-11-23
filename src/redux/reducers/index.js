@@ -6,7 +6,7 @@ import livesReducer from './livesReducer'
 const rootReducer = combineReducers({
 	questions: questionsReducer,
 	categories: categoriesReducer,
-	lives: livesReducer
+	lives: livesReducer,
 })
 
 export default rootReducer

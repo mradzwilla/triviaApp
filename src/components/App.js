@@ -13,7 +13,6 @@ class App extends Component {
     for (var i=0; i < categories.length ; i++){
       this.props.actions.getQuestionsOfType(categories[i]['id'], 10)
     }
-    // this.props.actions.getInitialQuestions(this.props.categories.activeCategories);
   }
 
   render() {
@@ -24,9 +23,11 @@ class App extends Component {
       <div className="app">
         <h1>LET'S GET TRIVIAL!</h1>
         <div>Lives: {this.props.lives}</div>
+        <div>Score: {this.props.categories.currentCategory.score}</div>
         <button onClick={this.props.actions.addScoreToCategory}>Add score </button>
         <div>Timer Component</div>
         <div>Lives Component</div>
+
         {this.props.categories.activeCategories.map((category, i) => {
             return <CategoryDisplayComponent 
                       key={i}

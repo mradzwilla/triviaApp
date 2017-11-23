@@ -31,14 +31,14 @@ let questionsReducer = function(state = {}, action){
 			var newQuestionEntry = {
 				[action.meta.categoryID]: questionsArray
 			}
-			// var stateCopy = state.map(a => ({...a}))
-			// console.log(stateCopy)
-			// stateCopy.push(newQuestionEntry)
 			return merge(state, newQuestionEntry)
 
-		case 'CHECK_ANSWER':
-			return state;
+		case 'NEXT_QUESTION':
+			let respObj = Object.assign({}, state);
+			respObj.currentQuestionIndex += 1
+			return respObj
 		default:
+			console.log(action.type)
 			return state;
 	}
 }

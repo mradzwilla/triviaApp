@@ -3,6 +3,7 @@
 
 import React, { Component } from 'react';
 import shuffle from 'shuffle-array'
+import {batchActions} from 'redux-batched-actions';
 
 class OptionsComponent extends Component {
 	getOptions(){
@@ -11,12 +12,16 @@ class OptionsComponent extends Component {
 		options.push(this.props.answer)
 		return shuffle(options)
 	}
+	handleClick(isCorrect){
+		let actions = this.props.actions
+		batchActions([actions.checkAnswer(isCorrect), actions.nextQuestion()])
+	}
 	render(){
 		if (this.props.type === 'boolean'){
 		    return (
 		      <div>
-		      	<button onClick={() => {this.props.actions.checkAnswer(this.props.answer === "True")}}>True</button>
-		      	<button onClick={() => {this.props.actions.checkAnswer(this.props.answer === "False")}}>False</button>
+		      	<button onClick={() => {this.handleClick(this.props.answer === "True")}}>True</button>
+		      	<button onClick={() => {this.handleClick(this.props.answer === "False")}}>False</button>
 		      </div>
 		    )
 		} else {
@@ -24,7 +29,7 @@ class OptionsComponent extends Component {
 				<div>
 				{this.getOptions().map((option, index) => {
 						return <button 
-									onClick={() => {this.props.actions.checkAnswer(this.props.answer === option)}} 
+									onClick={() => {this.handleClick(this.props.answer === option)}} 
 									key={index}
 									correct={this.props.answer === option}
 									>
