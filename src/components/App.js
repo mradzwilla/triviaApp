@@ -7,6 +7,13 @@ import CategoryDisplayComponent from './CategoryDisplayComponent'
 
 class App extends Component {
 
+  constructor(props){
+    super(props)
+    this.state = {
+      timer: 0
+    }
+    this.tick = this.tick.bind(this)
+  }
   componentWillMount(){
     var categories = this.props.actions.updateActiveCategories(this.props.categories.allCategories)['categories']
     //Category has id and name property
@@ -14,20 +21,35 @@ class App extends Component {
       this.props.actions.getQuestionsOfType(categories[i]['id'], 10)
     }
   }
+  componentDidMount() {
+      let timer = setInterval(this.tick, 1000);
+      this.setState({timer});
+  }
+  componentDidUpdate(){
+      if (this.props.categories.currentCategory.score >= 5){
+        this.props.actions.getUpcompletedCategory()
+      }
+  }
+  componentWillUnmount() {
+      this.clearInterval(this.state.timer);
+  }
+  tick() {
+      this.setState({
+        timer: this.state.timer + 1
+      });
+  }
 
   render() {
-    console.log(this.props)
     var currentQuestionArray = this.props.questions[this.props.categories.currentCategory['id']]
-    // console.log((this.props.categories.currentCategory))
+
     return (
       <div className="app">
         <h1>LET'S GET TRIVIAL!</h1>
+        <div>{this.state.timer}</div>
         <div>Lives: {this.props.lives}</div>
         <div>Score: {this.props.categories.currentCategory.score}</div>
         <button onClick={this.props.actions.addScoreToCategory}>Add score </button>
-        <div>Timer Component</div>
-        <div>Lives Component</div>
-
+                <button onClick={this.props.actions.getUpcompletedCategory}>Get uncompleted </button>
         {this.props.categories.activeCategories.map((category, i) => {
             return <CategoryDisplayComponent 
                       key={i}
@@ -39,17 +61,15 @@ class App extends Component {
           })
         }
         { (currentQuestionArray) ? 
-          currentQuestionArray.map((question, i) => {
-          return <QuestionComponent 
-                    key={i}
+          <QuestionComponent 
                     actions = {this.props.actions} 
-                    question={question.question} 
-                    answer={question.answer} 
-                    options={question.options} 
-                    type={question.type}
-                    id={question.id}
+                    question={currentQuestionArray[this.props.categories.currentCategory.currentIndex]['question']} 
+                    answer={currentQuestionArray[this.props.categories.currentCategory.currentIndex]['answer']} 
+                    options={currentQuestionArray[this.props.categories.currentCategory.currentIndex]['allChoices']} 
+                    type={currentQuestionArray[this.props.categories.currentCategory.currentIndex]['type']}
+                    id={currentQuestionArray[this.props.categories.currentCategory.currentIndex]['id']}
                  />
-          }) : <div>Loading Questions...</div>
+          : <div> Loading Questions...</div>
         }
       </div>
     );
@@ -80,4 +100,18 @@ export default connect(mapStateToProps, mapDispatchToProps)(App)
     //             id={question.id}
     //          />
     //   }) 
+    // }
+
+    // { (currentQuestionArray) ? 
+    //   currentQuestionArray.map((question, i) => {
+    //   return <QuestionComponent 
+    //             key={i}
+    //             actions = {this.props.actions} 
+    //             question={question.question} 
+    //             answer={question.answer} 
+    //             options={question.options} 
+    //             type={question.type}
+    //             id={question.id}
+    //          />
+    //   }) : <div>Loading Questions...</div>
     // }

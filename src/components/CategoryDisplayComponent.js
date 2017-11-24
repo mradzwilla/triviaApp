@@ -4,9 +4,10 @@
 import React, { Component } from 'react';
 
 class CategoryDisplayComponent extends Component {
+
   render() {
   	if (this.props.score >= 5) {
-  		return <div>Completed</div>
+  		return <div className="completedCategory">{this.props.category} Completed</div>
   	} else {
 	    return (
 	      <button onClick={() => {this.props.actions.changeCurrentCategory(this.props.categoryId)}}>

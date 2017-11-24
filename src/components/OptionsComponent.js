@@ -2,16 +2,17 @@
 //It will also need to conditionally display a text box and submit button or true/false buttons
 
 import React, { Component } from 'react';
-import shuffle from 'shuffle-array'
+// import shuffle from 'shuffle-array'
 import {batchActions} from 'redux-batched-actions';
 
 class OptionsComponent extends Component {
-	getOptions(){
-		//Slice is needed to create a copy to avid mutating state
-		var options = this.props.options.slice(0)
-		options.push(this.props.answer)
-		return shuffle(options)
-	}
+	// getOptions(){
+	// 	//Slice is needed to create a copy to avid mutating state
+	// 	var options = this.props.options.slice(0) 
+	// 	if (options.length == 2 || options.length == 4){return options}
+	// 	options.push(this.props.answer)
+	// 	return shuffle(options)
+	// }
 	handleClick(isCorrect){
 		let actions = this.props.actions
 		batchActions([actions.checkAnswer(isCorrect), actions.nextQuestion()])
@@ -27,7 +28,7 @@ class OptionsComponent extends Component {
 		} else {
 			return (
 				<div>
-				{this.getOptions().map((option, index) => {
+				{this.props.options.map((option, index) => {
 						return <button 
 									onClick={() => {this.handleClick(this.props.answer === option)}} 
 									key={index}

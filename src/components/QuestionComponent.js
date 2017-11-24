@@ -6,6 +6,7 @@ import OptionsComponent from './OptionsComponent';
 
 class QuestionComponent extends Component {
   render() {
+  	console.log(this)
     return (
       <div>
       	<h1>Question: {this.props.question}</h1>

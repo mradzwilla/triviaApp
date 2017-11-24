@@ -10,17 +10,11 @@ const constants = {
 	CHANGE_CURRENT_CATEGORY: 'CHANGE_CURRENT_CATEGORY',
 	ADD_SCORE: 'ADD_SCORE',
 	LOSE_LIFE: 'LOSE_LIFE',
-	NEXT_QUESTION: 'NEXT_QUESTION'
+	NEXT_QUESTION: 'NEXT_QUESTION',
+	GET_UNCOMPLETED_CATEGORY: 'GET_UNCOMPLETED_CATEGORY'
 }
 
 let actions = {
-	// getInitialQuestions: function(categories){
-	// 	console.log(categories)
-	// 	return {
-	// 		type: constants.GET_QUESTIONS,
-	// 		payload: axios.get("https://opentdb.com/api.php?amount=10")
-	// 	}
-	// },
 	getQuestionsOfType: function(category, amount){
 		return {
 			type: constants.QUESTIONS_OF_TYPE,
@@ -43,18 +37,18 @@ let actions = {
 		}
 	},
 	nextQuestion: function(){
-		console.log('NEXT QUESTION')
 		return {
 			type: constants.NEXT_QUESTION
 		}
 	},
 	updateActiveCategories: function(categories){
 		var shuffledArray = shuffle(categories).slice(0,5)
-		//Add a score property if no score exists
+		//Add a score property if none exists and set initial index
 		for (let i=0;i<shuffledArray.length;i++){
 			var index = shuffledArray[i]
 			if (!index['score']){
 				index['score'] = 0
+				index['currentIndex'] = 0
 			}
 		}
 		return {
@@ -66,6 +60,11 @@ let actions = {
 		return {
 			type: constants.CHANGE_CURRENT_CATEGORY,
 			category: category
+		}
+	},
+	getUpcompletedCategory: function(){
+		return {
+			type: constants.GET_UNCOMPLETED_CATEGORY
 		}
 	},
 	addScoreToCategory: function(){
