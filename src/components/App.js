@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import QuestionComponent from './QuestionComponent'
 import CategoryDisplayComponent from './CategoryDisplayComponent'
-
+import SkipComponent from './SkipComponent'
 class App extends Component {
 
   constructor(props){
@@ -18,16 +18,17 @@ class App extends Component {
     var categories = this.props.actions.updateActiveCategories(this.props.categories.allCategories)['categories']
     //Category has id and name property
     for (var i=0; i < categories.length ; i++){
-      this.props.actions.getQuestionsOfType(categories[i]['id'], 10)
+      this.props.actions.getQuestionsOfType(categories[i]['id'], 10, this.props.difficulty)
     }
   }
   componentDidMount() {
-      let timer = setInterval(this.tick, 1000);
-      this.setState({timer});
+
+      // let timer = setInterval(this.tick, 1000);
+      // this.setState({timer});
   }
   componentDidUpdate(){
       if (this.props.categories.currentCategory.score >= 5){
-        this.props.actions.getUpcompletedCategory()
+        this.props.actions.getUpcompletedCategory(this.props.categories.activeCategories)
       }
   }
   componentWillUnmount() {
@@ -46,10 +47,12 @@ class App extends Component {
       <div className="app">
         <h1>LET'S GET TRIVIAL!</h1>
         <div>{this.state.timer}</div>
+        <div>{this.props.skips}</div>
+        <SkipComponent actions={this.props.actions} skips={this.props.skips}/>
         <div>Lives: {this.props.lives}</div>
         <div>Score: {this.props.categories.currentCategory.score}</div>
         <button onClick={this.props.actions.addScoreToCategory}>Add score </button>
-                <button onClick={this.props.actions.getUpcompletedCategory}>Get uncompleted </button>
+                <button onClick={() => {this.props.actions.getUpcompletedCategory(this.props.categories.activeCategories)}}>Get uncompleted </button>
         {this.props.categories.activeCategories.map((category, i) => {
             return <CategoryDisplayComponent 
                       key={i}

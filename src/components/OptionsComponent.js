@@ -2,7 +2,6 @@
 //It will also need to conditionally display a text box and submit button or true/false buttons
 
 import React, { Component } from 'react';
-// import shuffle from 'shuffle-array'
 import {batchActions} from 'redux-batched-actions';
 
 class OptionsComponent extends Component {

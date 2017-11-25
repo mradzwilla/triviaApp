@@ -11,18 +11,22 @@ const constants = {
 	ADD_SCORE: 'ADD_SCORE',
 	LOSE_LIFE: 'LOSE_LIFE',
 	NEXT_QUESTION: 'NEXT_QUESTION',
-	GET_UNCOMPLETED_CATEGORY: 'GET_UNCOMPLETED_CATEGORY'
+	USE_SKIP: 'USE_SKIP',
+	GET_UNCOMPLETED_CATEGORY: 'GET_UNCOMPLETED_CATEGORY',
+	ROUND_COMPLETE: 'ROUND_COMPLETE'
 }
 
 let actions = {
-	getQuestionsOfType: function(category, amount){
+	getQuestionsOfType: function(category, amount, difficulty){
 		return {
 			type: constants.QUESTIONS_OF_TYPE,
 			meta: {
 				amount: amount,
 				categoryID: category,
 			},
-			payload: axios.get("https://opentdb.com/api.php?amount=" + amount + "&category=" + category)
+			// payload: axios.get("https://opentdb.com/api.php?amount=" + amount + "&category=" + category)
+			payload: axios.get(`https://opentdb.com/api.php?amount=${amount}&category=${category}`)
+
 		}
 	},
 	checkAnswer: function(correct){
@@ -62,9 +66,29 @@ let actions = {
 			category: category
 		}
 	},
-	getUpcompletedCategory: function(){
+	getUpcompletedCategory: function(activeCategories){
+		console.log('okok')
+		console.log(activeCategories)
+		for (var i = 0; i< activeCategories.length;i++){
+			if (activeCategories[i]['score'] < 5){
+				return {
+					type: constants.GET_UNCOMPLETED_CATEGORY
+				}
+			} 
+		}
+		//If loop fails to return, all rounds have been completed
 		return {
-			type: constants.GET_UNCOMPLETED_CATEGORY
+			type: constants.ROUND_COMPLETE
+		}
+	},
+	roundComplete: function(){
+		return {
+			type: constants.ROUND_COMPLETE
+		}
+	},
+	useSkip:function(){
+		return {
+			type: constants.USE_SKIP
 		}
 	},
 	addScoreToCategory: function(){

@@ -39,7 +39,8 @@ var categories = {
 let initialState = {
 	questions: {currentQuestionIndex: 0},
 	categories: categories,
-	lives: 5
+	lives: 5,
+	skips: 3
 }
 
 //configureStore basically just moves the middleware to its own file. This functions like createStore
