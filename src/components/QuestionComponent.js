@@ -9,7 +9,7 @@ class QuestionComponent extends Component {
   	console.log(this)
     return (
       <div>
-      	<h1>Question: {this.props.question}</h1>
+      	<h1 className="questionText">{this.props.question}</h1>
       	<OptionsComponent actions = {this.props.actions} type={this.props.type} questionId={this.props.id} answer={this.props.answer} options={this.props.options}/>
         <h2>{this.props.answer}</h2>
       </div>

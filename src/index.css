@@ -1,5 +1,48 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
+
+@font-face {
+	font-family: 'Price Is Right';
+	src: url(./fonts/pricedow.ttf) format('truetype');
+}
+html, #root {
+	height: 100%;
+}
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Roboto Slab';
+  height: 100%;
+}
+.app {
+	margin: 0 auto;
+	padding: 20px;
+	height: 100%;
+	max-width: 1400px;
+    background: #DDFFF7; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left top, #DDFFF7, #93E1D8); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(bottom right, #DDFFF7, #93E1D8); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(bottom right, #DDFFF7, #93E1D8); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to bottom right, #DDFFF7, #93E1D8); /* Standard syntax */
+}
+
+.logo {
+	font-family: 'Price Is Right';
+	text-align: center;
+	font-size: 80px;
+	margin-top: 0px;
+	margin-bottom: 40px;
+	color: #FFA69E;
+	text-shadow: 5px 3px #B592A0;
+}
+
+.categoryButton{
+	font-family: 'Price Is Right';
+	font-size: 30px;
+	margin: 0px 3px;
+}
+.buttonRowWrapper{
+	text-align: center;
+}
+.questionText{
+	text-align: center;
 }

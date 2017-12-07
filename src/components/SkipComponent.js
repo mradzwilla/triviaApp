@@ -3,6 +3,7 @@
 
 import React, { Component } from 'react';
 import {batchActions} from 'redux-batched-actions';
+import {Button, ButtonToolbar} from 'react-bootstrap';
 
 class SkipComponent extends Component {
 
@@ -17,12 +18,12 @@ class SkipComponent extends Component {
   			let skipArray = []
   			for (var i=0;i<this.props.skips;i++){
   				skipArray.push((
-  					<button onClick={() => {this.handleClick()}}>
+  					<Button onClick={() => {this.handleClick()}}>
       					Skip Question!
-      				</button>)
+      				</Button>)
       			)
   			}
-			return <div>{skipArray}</div>
+			return <ButtonToolbar className='text-center'>{skipArray}</ButtonToolbar>
   		}
   }
 }

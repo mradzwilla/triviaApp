@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import actions from '../redux/actions'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import actions from '../redux/actions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import QuestionComponent from './QuestionComponent'
 import CategoryDisplayComponent from './CategoryDisplayComponent'
 import SkipComponent from './SkipComponent'
+// import 'bootstrap/less/bootstrap.less'
+
 class App extends Component {
 
   constructor(props){
@@ -15,14 +17,9 @@ class App extends Component {
     this.tick = this.tick.bind(this)
   }
   componentWillMount(){
-    var categories = this.props.actions.updateActiveCategories(this.props.categories.allCategories)['categories']
-    //Category has id and name property
-    for (var i=0; i < categories.length ; i++){
-      this.props.actions.getQuestionsOfType(categories[i]['id'], 10, this.props.difficulty)
-    }
+    this.newRound()
   }
   componentDidMount() {
-
       // let timer = setInterval(this.tick, 1000);
       // this.setState({timer});
   }
@@ -39,20 +36,25 @@ class App extends Component {
         timer: this.state.timer + 1
       });
   }
-
+  newRound(){
+    var categories = this.props.actions.updateActiveCategories(this.props.categories.allCategories)['categories']
+    //Category has id and name property
+    for (var i=0; i < categories.length ; i++){
+      this.props.actions.getQuestionsOfType(categories[i]['id'], 10, this.props.difficulty)
+    }
+  }
   render() {
     var currentQuestionArray = this.props.questions[this.props.categories.currentCategory['id']]
 
     return (
       <div className="app">
-        <h1>LET'S GET TRIVIAL!</h1>
-        <div>{this.state.timer}</div>
-        <div>{this.props.skips}</div>
-        <SkipComponent actions={this.props.actions} skips={this.props.skips}/>
-        <div>Lives: {this.props.lives}</div>
-        <div>Score: {this.props.categories.currentCategory.score}</div>
+        <div>
+        <h1 className="logo">LET'S GET TRIVIAL!</h1>
+        </div>
         <button onClick={this.props.actions.addScoreToCategory}>Add score </button>
-                <button onClick={() => {this.props.actions.getUpcompletedCategory(this.props.categories.activeCategories)}}>Get uncompleted </button>
+        <button onClick={() => {this.props.actions.getUpcompletedCategory(this.props.categories.activeCategories)}}>Get uncompleted </button>
+        <SkipComponent actions={this.props.actions} skips={this.props.skips}/>
+        <div className="buttonRowWrapper">
         {this.props.categories.activeCategories.map((category, i) => {
             return <CategoryDisplayComponent 
                       key={i}
@@ -63,6 +65,9 @@ class App extends Component {
                     />
           })
         }
+        </div>
+        <div>Lives: {this.props.lives}</div>
+        <div>Score: {this.props.categories.currentCategory.score}</div>
         { (currentQuestionArray) ? 
           <QuestionComponent 
                     actions = {this.props.actions} 

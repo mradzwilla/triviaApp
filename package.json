@@ -4,10 +4,13 @@
   "private": true,
   "dependencies": {
     "axios": "^0.17.1",
+    "bootstrap": "^3.3.7",
     "deepmerge": "^2.0.1",
     "he": "^1.1.1",
     "react": "^16.1.1",
+    "react-bootstrap": "^0.31.5",
     "react-dom": "^16.1.1",
+    "react-fontawesome": "^1.6.1",
     "react-redux": "^5.0.6",
     "react-scripts": "1.0.17",
     "redux": "^3.7.2",

@@ -3,6 +3,7 @@ import { render } from 'react-dom'
 import App from "./components/App"
 import configureStore from './redux/store'
 import { Provider } from 'react-redux'
+import './index.css'
 // import axios from 'axios';
 
 var categories = {

@@ -1,13 +1,13 @@
 //Remember, reducers are functions that take previous state and return new state as a pure function
 //Do not mutate existing state
 
-let skipsReducer = function(skips = 3, action){
+let roundReducer = function(round = "", action){
 	switch (action.type){
-		case 'USE_SKIP':
-			return skips - 1
+		case 'ROUND_COMPLETE':
+			return round - 1
 		default:
-			return skips;
+			return round;
 	}
 }
 
-export default skipsReducer;
+export default roundReducer;

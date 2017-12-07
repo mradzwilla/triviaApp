@@ -10,7 +10,6 @@ let questionsReducer = function(state = {}, action){
 		case 'GET_QUESTIONS':
 			return []
 		case 'GET_QUESTIONS_FULFILLED':
-			console.log(action.payload)
 			return action.payload['data']['results'].map((question, index) => {
 				return {
 					question: he.decode(question['question']),
@@ -41,7 +40,6 @@ let questionsReducer = function(state = {}, action){
 			}
 			return merge(state, newQuestionEntry)
 		default:
-			console.log(action.type)
 			return state;
 	}
 }

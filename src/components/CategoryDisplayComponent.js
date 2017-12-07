@@ -2,17 +2,20 @@
 //It will need to dispatch a method to update an active category state field
 
 import React, { Component } from 'react';
+import {Button} from 'react-bootstrap';
 
 class CategoryDisplayComponent extends Component {
 
   render() {
   	if (this.props.score >= 5) {
-  		return <div className="completedCategory">{this.props.category} Completed</div>
+  		return (
+  			<Button className="categoryButton completedCategory"><del>{this.props.category}</del></Button>
+  		)
   	} else {
 	    return (
-	      <button onClick={() => {this.props.actions.changeCurrentCategory(this.props.categoryId)}}>
+	      <Button className="categoryButton" onClick={() => {this.props.actions.changeCurrentCategory(this.props.categoryId)}}>
 	      	{this.props.category}
-	      </button>
+	      </Button>
 	    );
 	}
   }
