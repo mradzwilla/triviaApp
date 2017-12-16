@@ -5,24 +5,27 @@
 	src: url(./fonts/pricedow.ttf) format('truetype');
 }
 html, #root {
-	height: 100%;
+	height: 100vh;
+	width: 100vw;
 }
 body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Roboto Slab';
-  height: 100%;
-}
-.app {
-	margin: 0 auto;
-	padding: 20px;
-	height: 100%;
-	max-width: 1400px;
+	margin: 0;
+	padding: 0;
+	font-family: 'Roboto Slab';
+	min-height: 100%;
+	width: 100%;
     background: #DDFFF7; /* For browsers that do not support gradients */
     background: -webkit-linear-gradient(left top, #DDFFF7, #93E1D8); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(bottom right, #DDFFF7, #93E1D8); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(bottom right, #DDFFF7, #93E1D8); /* For Firefox 3.6 to 15 */
     background: linear-gradient(to bottom right, #DDFFF7, #93E1D8); /* Standard syntax */
+}
+
+.app {
+	margin: 0 auto;
+	padding: 20px;
+	height: 100%;
+	max-width: 1000px;
 }
 
 .logo {
@@ -34,11 +37,63 @@ body {
 	color: #FFA69E;
 	text-shadow: 5px 3px #B592A0;
 }
+.life {
+	color: #ff5444;
+	font-size: 30px;
+	margin: 4px;
+}
+.lifeLost{
+	color: #78918f;
+	font-size: 35px;
+	margin: 4px;
+}
+.headerWrapper{
+	text-align: center;
+	margin-bottom: 20px;
+}
+.livesContainer{
+	display: inline-block;
+	margin-right: 5%;
+} 
+.skipsContainer {
+	display: inline-block;
+	vertical-align: top;
+}
 
+.skipButton{
+	color: #5b3e4a;
+	background-color: #FFA69E;
+	box-shadow: 1px 1px #B592A0;
+	border-radius: 7px;
+	padding: 6px;
+	margin: 3px;
+}
 .categoryButton{
 	font-family: 'Price Is Right';
+	background-color: #F0B67F;
+	color: #5b3e4a;
+	padding: 10px;
+	box-shadow: 3px 3px #B592A0;
+	border-radius: 7px;
 	font-size: 30px;
 	margin: 0px 3px;
+}
+.optionButton{
+	color: #5b3e4a;
+	background-color: #FFA69E;
+	box-shadow: 1px 1px #B592A0;
+	border-radius: 7px;
+	padding: 10px;
+	font-size: 20px;
+	margin: 15px 5px;
+}
+.score{
+	text-align: center;
+	font-family: 'Price Is Right';
+	color: #FFA69E;
+	font-size: 50px;
+	text-shadow: 3px 3px #B592A0;
+	margin: 10px 0;
 }
 .buttonRowWrapper{
 	text-align: center;

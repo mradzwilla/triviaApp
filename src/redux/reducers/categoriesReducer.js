@@ -22,7 +22,6 @@ let categoriesReducer = function(categories = {}, action){
 			function findUpcompletedCategory(category){
 				return category.score < 5
 			}
-			console.log("NEW category")
 			var upcompletedCategory = categories.activeCategories.find(findUpcompletedCategory)
 			return Object.assign({}, categories, {currentCategory: upcompletedCategory})
 
@@ -35,8 +34,15 @@ let categoriesReducer = function(categories = {}, action){
 			return respObj
 
 		case 'NEXT_QUESTION':
-			let respObj = Object.assign({}, categories);
+			var respObj = Object.assign({}, categories);
 			respObj.currentCategory.currentIndex += 1
+			return respObj
+		case 'ROUND_COMPLETE':
+			var respObj = Object.assign({}, categories);
+			for (var p in respObj.activeCategories){
+				respObj['activeCategories'][p]['score'] = 0
+				respObj['activeCategories'][p]['currentIndex'] = 0
+			}
 			return respObj
 		default:
 			return categories;

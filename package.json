@@ -6,6 +6,7 @@
     "axios": "^0.17.1",
     "bootstrap": "^3.3.7",
     "deepmerge": "^2.0.1",
+    "font-awesome": "^4.7.0",
     "he": "^1.1.1",
     "react": "^16.1.1",
     "react-bootstrap": "^0.31.5",

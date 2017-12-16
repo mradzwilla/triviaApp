@@ -39,6 +39,8 @@ let questionsReducer = function(state = {}, action){
 				[action.meta.categoryID]: questionsArray
 			}
 			return merge(state, newQuestionEntry)
+		case 'CLEAR_QUESTIONS':
+			return {}
 		default:
 			return state;
 	}

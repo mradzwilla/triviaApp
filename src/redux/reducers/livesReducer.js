@@ -3,8 +3,6 @@
 
 let livesReducer = function(lives = 5, action){
 	switch (action.type){
-		// case 'SET_ALL_CATEGORIES':
-		// 	return action.categories
 		case 'LOSE_LIFE':
 			return lives - 1
 		default:

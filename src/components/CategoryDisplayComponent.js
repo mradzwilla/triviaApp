@@ -9,11 +9,11 @@ class CategoryDisplayComponent extends Component {
   render() {
   	if (this.props.score >= 5) {
   		return (
-  			<Button className="categoryButton completedCategory"><del>{this.props.category}</del></Button>
+  			<Button bsClass="categoryButton completedCategory"><del>{this.props.category}</del></Button>
   		)
   	} else {
 	    return (
-	      <Button className="categoryButton" onClick={() => {this.props.actions.changeCurrentCategory(this.props.categoryId)}}>
+	      <Button bsClass="categoryButton" onClick={() => {this.props.actions.changeCurrentCategory(this.props.categoryId)}}>
 	      	{this.props.category}
 	      </Button>
 	    );

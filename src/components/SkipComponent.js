@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import {batchActions} from 'redux-batched-actions';
 import {Button, ButtonToolbar} from 'react-bootstrap';
+import FontAwesome from 'react-fontawesome';
 
 class SkipComponent extends Component {
 
@@ -13,20 +14,27 @@ class SkipComponent extends Component {
   }
   render() {
   		if (!this.props.skips){
-  			return <div>All out of skips!</div>
+  			return <div>No Skips Left!</div>
   		} else {
   			let skipArray = []
   			for (var i=0;i<this.props.skips;i++){
   				skipArray.push((
-  					<Button onClick={() => {this.handleClick()}}>
-      					Skip Question!
-      				</Button>)
+  					<Button key={i} bsClass="skipButton" onClick={() => {this.handleClick()}}>SKIP</Button>
+      				)
       			)
   			}
-			return <ButtonToolbar className='text-center'>{skipArray}</ButtonToolbar>
+
+			return (
+				<div className="skipsContainer">
+				<ButtonToolbar className='text-center'>{skipArray}</ButtonToolbar>
+				</div>
+				)
   		}
   }
 }
 
 
 export default SkipComponent
+
+// <FontAwesome key={i} name='refresh' className='refreshIcon' onClick={() => {this.handleClick()}}>
+// </FontAwesome>

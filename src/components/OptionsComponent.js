@@ -21,21 +21,22 @@ class OptionsComponent extends Component {
 		if (this.props.type === 'boolean'){
 		    return (
 		      <ButtonToolbar xs={12}>
-		      	<Button onClick={() => {this.handleClick(this.props.answer === "True")}}>True</Button>
-		      	<Button onClick={() => {this.handleClick(this.props.answer === "False")}}>False</Button>
+		      	<Button bsClass="optionButton" onClick={() => {this.handleClick(this.props.answer === "True")}}>True</Button>
+		      	<Button bsClass="optionButton" onClick={() => {this.handleClick(this.props.answer === "False")}}>False</Button>
 		      </ButtonToolbar>
 		    )
 		} else {
 			return (
-				<ButtonToolbar xs={12}>
+				<ButtonToolbar xs={12} style={{'justify-content':'center', display: 'flex'}}>
 				{this.props.options.map((option, index) => {
 						return <Button 
 									onClick={() => {this.handleClick(this.props.answer === option)}} 
+									bsClass="optionButton"
 									key={index}
 									correct={this.props.answer === option}
 									xs={3}
 									>
-								{option}
+								{option}{' '}
 								</Button>
 					})
 				}

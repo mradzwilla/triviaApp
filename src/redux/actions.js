@@ -5,6 +5,7 @@ const constants = {
 	GET_QUESTIONS: 'GET_QUESTIONS',
 	CHECK_ANSWER: 'CHECK_ANSWER',
 	QUESTIONS_OF_TYPE: 'QUESTIONS_OF_TYPE',
+	CLEAR_QUESTIONS: 'CLEAR_QUESTIONS',
 	SET_ALL_CATEGORIES: 'SET_ALL_CATEGORIES',
 	UPDATE_ACTIVE_CATEGORIES: 'UPDATE_ACTIVE_CATEGORIES',
 	CHANGE_CURRENT_CATEGORY: 'CHANGE_CURRENT_CATEGORY',
@@ -13,7 +14,7 @@ const constants = {
 	NEXT_QUESTION: 'NEXT_QUESTION',
 	USE_SKIP: 'USE_SKIP',
 	GET_UNCOMPLETED_CATEGORY: 'GET_UNCOMPLETED_CATEGORY',
-	ROUND_COMPLETE: 'ROUND_COMPLETE'
+	ROUND_COMPLETE: 'ROUND_COMPLETE',
 }
 
 let actions = {
@@ -24,9 +25,13 @@ let actions = {
 				amount: amount,
 				categoryID: category,
 			},
-			// payload: axios.get("https://opentdb.com/api.php?amount=" + amount + "&category=" + category)
 			payload: axios.get(`https://opentdb.com/api.php?amount=${amount}&category=${category}`)
 
+		}
+	},
+	clearQuestions: function(){
+		return {
+			type: constants.CLEAR_QUESTIONS
 		}
 	},
 	checkAnswer: function(correct){
@@ -67,8 +72,7 @@ let actions = {
 		}
 	},
 	getUpcompletedCategory: function(activeCategories){
-		console.log('okok')
-		console.log(activeCategories)
+
 		for (var i = 0; i< activeCategories.length;i++){
 			if (activeCategories[i]['score'] < 5){
 				return {

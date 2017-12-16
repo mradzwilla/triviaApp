@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import actions from '../redux/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import QuestionComponent from './QuestionComponent'
-import CategoryDisplayComponent from './CategoryDisplayComponent'
-import SkipComponent from './SkipComponent'
+import {batchActions} from 'redux-batched-actions';
+// import FontAwesome from 'react-fontawesome';
+import 'font-awesome/css/font-awesome.css';
+import QuestionComponent from './QuestionComponent';
+import CategoryDisplayComponent from './CategoryDisplayComponent';
+import SkipComponent from './SkipComponent';
+import LivesComponent from './LivesComponent';
+
 // import 'bootstrap/less/bootstrap.less'
 
 class App extends Component {
@@ -12,7 +17,8 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      timer: 0
+      timer: 0,
+      maxLives: 5
     }
     this.tick = this.tick.bind(this)
   }
@@ -25,11 +31,25 @@ class App extends Component {
   }
   componentDidUpdate(){
       if (this.props.categories.currentCategory.score >= 5){
-        this.props.actions.getUpcompletedCategory(this.props.categories.activeCategories)
+        if (!this.allCategoriesComplete(this.props.categories.activeCategories)){
+          this.props.actions.getUpcompletedCategory(this.props.categories.activeCategories)
+        } else{
+          this.newRound()
+        }
       }
   }
   componentWillUnmount() {
       this.clearInterval(this.state.timer);
+  }
+  allCategoriesComplete(categories){
+    //If a category has less than a score of 5
+    for (let i=0;i < categories.length; i++){
+      if (categories[i]['score'] < 5){
+        return false
+      }
+    }
+    //If not
+    return true
   }
   tick() {
       this.setState({
@@ -37,6 +57,9 @@ class App extends Component {
       });
   }
   newRound(){
+    this.props.actions.clearQuestions()
+    this.props.actions.roundComplete() //This action name is awful and needs to be changed
+
     var categories = this.props.actions.updateActiveCategories(this.props.categories.allCategories)['categories']
     //Category has id and name property
     for (var i=0; i < categories.length ; i++){
@@ -51,9 +74,14 @@ class App extends Component {
         <div>
         <h1 className="logo">LET'S GET TRIVIAL!</h1>
         </div>
-        <button onClick={this.props.actions.addScoreToCategory}>Add score </button>
-        <button onClick={() => {this.props.actions.getUpcompletedCategory(this.props.categories.activeCategories)}}>Get uncompleted </button>
+        <div className="headerWrapper">
+        <LivesComponent maxLives={this.state.maxLives} lives={this.props.lives}/>
         <SkipComponent actions={this.props.actions} skips={this.props.skips}/>
+        </div>
+        {/*<button onClick={this.props.actions.addScoreToCategory}>Add score </button>
+                <button onClick={this.props.actions.clearQuestions}>CLEAR</button>
+        <button onClick={() => {this.props.actions.getUpcompletedCategory(this.props.categories.activeCategories)}}>Get uncompleted </button>
+        */}
         <div className="buttonRowWrapper">
         {this.props.categories.activeCategories.map((category, i) => {
             return <CategoryDisplayComponent 
@@ -66,8 +94,7 @@ class App extends Component {
           })
         }
         </div>
-        <div>Lives: {this.props.lives}</div>
-        <div>Score: {this.props.categories.currentCategory.score}</div>
+        <div className="score">{5-this.props.categories.currentCategory.score} more {this.props.categories.currentCategory.name} questions</div>
         { (currentQuestionArray) ? 
           <QuestionComponent 
                     actions = {this.props.actions} 
@@ -95,31 +122,3 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
-
-  // <button onClick={() => this.props.actions.updateActiveCategories(this.props.categories.allCategories)}>Update categories</button>
-    // {this.props.questions.map((question, i) => {
-    //   return <QuestionComponent 
-    //             key={i}
-    //             actions = {this.props.actions} 
-    //             question={question.question} 
-    //             answer={question.answer} 
-    //             options={question.options} 
-    //             type={question.type}
-    //             id={question.id}
-    //          />
-    //   }) 
-    // }
-
-    // { (currentQuestionArray) ? 
-    //   currentQuestionArray.map((question, i) => {
-    //   return <QuestionComponent 
-    //             key={i}
-    //             actions = {this.props.actions} 
-    //             question={question.question} 
-    //             answer={question.answer} 
-    //             options={question.options} 
-    //             type={question.type}
-    //             id={question.id}
-    //          />
-    //   }) : <div>Loading Questions...</div>
-    // }

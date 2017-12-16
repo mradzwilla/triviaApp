@@ -38,7 +38,7 @@ var categories = {
 
 //Remember each element added in state also needs to be assigned a reducer
 let initialState = {
-	questions: {currentQuestionIndex: 0},
+	questions: {},
 	categories: categories,
 	lives: 5,
 	skips: 3
