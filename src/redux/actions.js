@@ -15,6 +15,8 @@ const constants = {
 	USE_SKIP: 'USE_SKIP',
 	GET_UNCOMPLETED_CATEGORY: 'GET_UNCOMPLETED_CATEGORY',
 	ROUND_COMPLETE: 'ROUND_COMPLETE',
+	RESTART_ROUNDS: 'RESTART_ROUNDS',
+	RESET_LIVES: 'RESET_LIVES',
 }
 
 let actions = {
@@ -88,6 +90,16 @@ let actions = {
 	roundComplete: function(){
 		return {
 			type: constants.ROUND_COMPLETE
+		}
+	},
+	resetRounds: function(){
+		return {
+			type: constants.RESTART_ROUNDS
+		}
+	},
+	resetLives: function(){
+		return {
+			type: constants.RESET_LIVES
 		}
 	},
 	useSkip:function(){

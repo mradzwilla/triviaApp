@@ -41,7 +41,8 @@ let initialState = {
 	questions: {},
 	categories: categories,
 	lives: 5,
-	skips: 3
+	skips: 3,
+	round: 0
 }
 
 //configureStore basically just moves the middleware to its own file. This functions like createStore

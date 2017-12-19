@@ -14,7 +14,7 @@ class SkipComponent extends Component {
   }
   render() {
   		if (!this.props.skips){
-  			return <div>No Skips Left!</div>
+  			return <div/>
   		} else {
   			let skipArray = []
   			for (var i=0;i<this.props.skips;i++){

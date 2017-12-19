@@ -63,7 +63,17 @@ body {
 	display: inline-block;
 	vertical-align: top;
 }
-
+.startButton{
+	display: block;
+	font-family: 'Price Is Right';
+	background-color: #F0B67F;
+	color: #5b3e4a;
+	padding: 15px;
+	box-shadow: 3px 3px #B592A0;
+	border-radius: 7px;
+	font-size: 40px;
+	margin: 50px auto;
+}
 .skipButton{
 	color: #5b3e4a;
 	background-color: #FFA69E;
@@ -102,6 +112,9 @@ body {
 	font-size: 50px;
 	text-shadow: 3px 3px #B592A0;
 	margin: 10px 0;
+}
+.scoreHighlight{
+	color: #5b3e4a;
 }
 .buttonRowWrapper{
 	text-align: center;
@@ -152,4 +165,5 @@ body {
 	    font-size: 22.5px;
 	    line-height: 20px;
 	}
-}
+/*	color: #5b3e4a;
+*/}

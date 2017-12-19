@@ -3,14 +3,12 @@ import actions from '../redux/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {batchActions} from 'redux-batched-actions';
-// import FontAwesome from 'react-fontawesome';
 import 'font-awesome/css/font-awesome.css';
 import QuestionComponent from './QuestionComponent';
 import CategoryDisplayComponent from './CategoryDisplayComponent';
 import SkipComponent from './SkipComponent';
 import LivesComponent from './LivesComponent';
-
-// import 'bootstrap/less/bootstrap.less'
+import { Button } from 'react-bootstrap';
 
 class App extends Component {
 
@@ -23,7 +21,7 @@ class App extends Component {
     this.tick = this.tick.bind(this)
   }
   componentWillMount(){
-    this.newRound()
+    // this.newRound()
   }
   componentDidMount() {
       // let timer = setInterval(this.tick, 1000);
@@ -36,6 +34,8 @@ class App extends Component {
         } else{
           this.newRound()
         }
+      } else if (this.props.lives <= 0){
+        this.props.actions.resetRounds()
       }
   }
   componentWillUnmount() {
@@ -66,48 +66,63 @@ class App extends Component {
       this.props.actions.getQuestionsOfType(categories[i]['id'], 10, this.props.difficulty)
     }
   }
+  newGame(){
+    this.newRound()
+    this.props.actions.resetLives()
+  }
   render() {
     var currentQuestionArray = this.props.questions[this.props.categories.currentCategory['id']]
 
-    return (
-      <div className="app">
-        <div>
-        <h1 className="logo">LET'S GET TRIVIAL!</h1>
+    if (this.props.round == 0){
+      return (
+        <div className="app">
+          <div>
+          <h1 className="logo">LET'S GET TRIVIAL!</h1>
+          </div>
+          <Button bsClass="startButton" onClick={() => {this.newGame()}}>Click to Start</Button>
         </div>
-        <div className="headerWrapper">
-        <LivesComponent maxLives={this.state.maxLives} lives={this.props.lives}/>
-        <SkipComponent actions={this.props.actions} skips={this.props.skips}/>
+        )
+    } else {
+      return (
+        <div className="app">
+          <div>
+          <h1 className="logo">LET'S GET TRIVIAL!</h1>
+          </div>
+          <div className="headerWrapper">
+          <LivesComponent maxLives={this.state.maxLives} lives={this.props.lives}/>
+          <SkipComponent actions={this.props.actions} skips={this.props.skips}/>
+          </div>
+          {/*<button onClick={this.props.actions.addScoreToCategory}>Add score </button>
+                  <button onClick={this.props.actions.clearQuestions}>CLEAR</button>
+          <button onClick={() => {this.props.actions.getUpcompletedCategory(this.props.categories.activeCategories)}}>Get uncompleted </button>
+          */}
+          <div className="buttonRowWrapper">
+          {this.props.categories.activeCategories.map((category, i) => {
+              return <CategoryDisplayComponent 
+                        key={i}
+                        actions={this.props.actions} 
+                        category={category.name}
+                        categoryId={category.id}
+                        score={category.score}
+                      />
+            })
+          }
+          </div>
+          <div className="score"><span class="scoreHighlight">{5-this.props.categories.currentCategory.score}</span> more from <span class="scoreHighlight">{this.props.categories.currentCategory.name}</span></div>
+          { (currentQuestionArray) ? 
+            <QuestionComponent 
+                      actions = {this.props.actions} 
+                      question={currentQuestionArray[this.props.categories.currentCategory.currentIndex]['question']} 
+                      answer={currentQuestionArray[this.props.categories.currentCategory.currentIndex]['answer']} 
+                      options={currentQuestionArray[this.props.categories.currentCategory.currentIndex]['allChoices']} 
+                      type={currentQuestionArray[this.props.categories.currentCategory.currentIndex]['type']}
+                      id={currentQuestionArray[this.props.categories.currentCategory.currentIndex]['id']}
+                   />
+            : <div> Loading Questions...</div>
+          }
         </div>
-        {/*<button onClick={this.props.actions.addScoreToCategory}>Add score </button>
-                <button onClick={this.props.actions.clearQuestions}>CLEAR</button>
-        <button onClick={() => {this.props.actions.getUpcompletedCategory(this.props.categories.activeCategories)}}>Get uncompleted </button>
-        */}
-        <div className="buttonRowWrapper">
-        {this.props.categories.activeCategories.map((category, i) => {
-            return <CategoryDisplayComponent 
-                      key={i}
-                      actions={this.props.actions} 
-                      category={category.name}
-                      categoryId={category.id}
-                      score={category.score}
-                    />
-          })
-        }
-        </div>
-        <div className="score">{5-this.props.categories.currentCategory.score} more {this.props.categories.currentCategory.name} questions</div>
-        { (currentQuestionArray) ? 
-          <QuestionComponent 
-                    actions = {this.props.actions} 
-                    question={currentQuestionArray[this.props.categories.currentCategory.currentIndex]['question']} 
-                    answer={currentQuestionArray[this.props.categories.currentCategory.currentIndex]['answer']} 
-                    options={currentQuestionArray[this.props.categories.currentCategory.currentIndex]['allChoices']} 
-                    type={currentQuestionArray[this.props.categories.currentCategory.currentIndex]['type']}
-                    id={currentQuestionArray[this.props.categories.currentCategory.currentIndex]['id']}
-                 />
-          : <div> Loading Questions...</div>
-        }
-      </div>
-    );
+      );
+    }
   }
 }
 
