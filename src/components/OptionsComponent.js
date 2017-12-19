@@ -3,7 +3,7 @@
 
 import React, { Component } from 'react';
 import {batchActions} from 'redux-batched-actions';
-import { Button, Col, ButtonToolbar } from 'react-bootstrap';
+import { Button, Col, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
 
 class OptionsComponent extends Component {
 	// getOptions(){
@@ -20,27 +20,26 @@ class OptionsComponent extends Component {
 	render(){
 		if (this.props.type === 'boolean'){
 		    return (
-		      <ButtonToolbar xs={12}>
+		      <ButtonToolbar>
 		      	<Button bsClass="optionButton" onClick={() => {this.handleClick(this.props.answer === "True")}}>True</Button>
 		      	<Button bsClass="optionButton" onClick={() => {this.handleClick(this.props.answer === "False")}}>False</Button>
 		      </ButtonToolbar>
 		    )
 		} else {
 			return (
-				<ButtonToolbar xs={12} style={{'justify-content':'center', display: 'flex'}}>
+				<ButtonGroup vertical className="optionButtonGroup">
 				{this.props.options.map((option, index) => {
 						return <Button 
 									onClick={() => {this.handleClick(this.props.answer === option)}} 
 									bsClass="optionButton"
 									key={index}
 									correct={this.props.answer === option}
-									xs={3}
-									>
+								>
 								{option}{' '}
 								</Button>
 					})
 				}
-				</ButtonToolbar>
+				</ButtonGroup>
 			)
 		}
 	}
